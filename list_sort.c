@@ -7,15 +7,9 @@
 struct node{  
     int data;  
     struct node *next;  
-};  
-struct node_2{  
-    int data_2;  
-    struct node_2 *next;  
-};          
-   
+};   
 //Represent the head and tail of the singly linked list  
 struct node *head, *tail = NULL;  
-struct node_2 *head_2, *tail_2 = NULL; 
 //addnode() will add a new node to the list  
 void addnode(int data) {  
     //Create a new node  
@@ -35,27 +29,7 @@ void addnode(int data) {
         //newnode will become new tail of the list  
         tail = newnode;  
     }  
-}  
-void addnode_2(int data) {  
-    //Create a new node  
-    struct node_2 *newnode = (struct node_2*)malloc(sizeof(struct node_2));  
-    newnode->data_2 = data;  
-    newnode->next = NULL;  
-      
-    //Checks if the list is empty  
-    if(head == NULL) {  
-        //If list is empty, both head and tail will point to new node  
-        head_2 = newnode;  
-        tail_2 = newnode;  
-    }  
-    else {  
-        //newnode will be added after tail such that tail's next will point to newnode  
-        tail_2->next = newnode;  
-        //newnode will become new tail of the list  
-        tail_2 = newnode;  
-    }  
-} 
-       
+}
     //sortList() will sort nodes of the list in ascending order  
     void sortList() {  
         //node current will point to head  
@@ -83,7 +57,14 @@ void addnode_2(int data) {
             }      
         }  
     }  
-   
+void del (struct node *before_del)
+{
+    struct node *temp;
+    temp = before_del->next;
+    before_del->next = temp->next;
+    free(temp);
+}
+
 //display() will display all the nodes present in the list  
 void display() {  
     //node current will point to head  
@@ -99,21 +80,6 @@ void display() {
     }  
     printf("\n");  
 }  
-void display_2() {  
-    //node current will point to head  
-    struct node_2 *current = head_2;  
-    if(head_2 == NULL) {  
-        printf("List is empty \n");  
-        return;  
-    }  
-    while(current != NULL) {  
-        //Prints each node by incrementing pointer  
-        printf("%d ", current->data_2);  
-        current = current->next;  
-    }  
-    printf("\n");  
-}  
-
 // function to Find the unique elements in linked lists 
 int Find_unique()
 {
@@ -128,11 +94,11 @@ int Find_unique()
         current = current->next;
         i++;  
     }  
-	    
+	  del(head->next);
 
     /*Checking duplicate elements in the array */
      for(i=0; i<n; i++)
-    {
+    { del(head->next);
         ctr=0;
 		
 		/*Check duplicate bifore the current position and
@@ -154,12 +120,13 @@ int Find_unique()
             {
                 ctr++;
             }
+
         }
 		/*Print the value of the current position of the array as unique value 
 		when counter remain contains its initial value.*/
        if(ctr==0)
         {
-          addnode_2(arr1[i]);
+          addnode(arr1[i]);
         }
     }
        printf("\n\n");
@@ -167,7 +134,7 @@ int Find_unique()
       
 int main()  
 {  time_t t;
-    struct node* head = NULL;
+    
     //* Intializes random number generator */
    srand((unsigned) time(&t)); // Use current time as seed for random generator 
     for (int i = 0; i < 100; i++)
@@ -182,8 +149,8 @@ int main()
     //Displaying sorted list  
     printf("Sorted list: \n");  
     display(); 
-     printf("eunique list: \n");
+    printf("unique list: \n");
     Find_unique();
-    display_2(); 
+    display(); 
     return 0;  
 }  
