@@ -3,10 +3,11 @@
 #include <math.h>
 #include <stdlib.h> 
 #include<time.h>
-//Represent a node of the singly linked list  
+//Represent a node of the doubly linked list  
 struct node{  
     int data;  
     struct node *next;  
+	struct node *prev;  
 };   
 //Represent the head and tail of the singly linked list  
 struct node *head, *tail = NULL;  
